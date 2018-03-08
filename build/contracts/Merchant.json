@@ -1,0 +1,2052 @@
+{
+  "contractName": "Merchant",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_person",
+          "type": "address"
+        },
+        {
+          "name": "_account",
+          "type": "bytes32"
+        },
+        {
+          "name": "_amount",
+          "type": "bytes32"
+        },
+        {
+          "name": "_merchant",
+          "type": "address"
+        }
+      ],
+      "name": "saveCustomerTransaction",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_person",
+          "type": "address"
+        }
+      ],
+      "name": "getCustomerTransaction",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "bytes32"
+        },
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b6103cc8061001e6000396000f30060606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063cdc4a6a214610051578063d71bd75c146100c3575b600080fd5b341561005c57600080fd5b6100c1600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091908035600019169060200190919080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061015a565b005b34156100ce57600080fd5b6100fa600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610272565b60405180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001935050505060405180910390f35b610162610362565b8381600001906000191690816000191681525050828160200190600019169081600019168152505081816040019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff1681525050806000808773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082015181600001906000191690556020820151816001019060001916905560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055509050505050505050565b600080600061027f610362565b6000808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020606060405190810160405290816000820154600019166000191681526020016001820154600019166000191681526020016002820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815250509050806000015181602001518260400151935093509350509193909250565b6060604051908101604052806000801916815260200160008019168152602001600073ffffffffffffffffffffffffffffffffffffffff16815250905600a165627a7a7230582074ab039a03756bd409c786f44f4e40a10da670821da4897fe49f6885ee2c02ca0029",
+  "deployedBytecode": "0x60606040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063cdc4a6a214610051578063d71bd75c146100c3575b600080fd5b341561005c57600080fd5b6100c1600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091908035600019169060200190919080356000191690602001909190803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061015a565b005b34156100ce57600080fd5b6100fa600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610272565b60405180846000191660001916815260200183600019166000191681526020018273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001935050505060405180910390f35b610162610362565b8381600001906000191690816000191681525050828160200190600019169081600019168152505081816040019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff1681525050806000808773ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082015181600001906000191690556020820151816001019060001916905560408201518160020160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055509050505050505050565b600080600061027f610362565b6000808673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020606060405190810160405290816000820154600019166000191681526020016001820154600019166000191681526020016002820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815250509050806000015181602001518260400151935093509350509193909250565b6060604051908101604052806000801916815260200160008019168152602001600073ffffffffffffffffffffffffffffffffffffffff16815250905600a165627a7a7230582074ab039a03756bd409c786f44f4e40a10da670821da4897fe49f6885ee2c02ca0029",
+  "sourceMap": "25:680:1:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "25:680:1:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;185:261;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;450:253;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;185:261;295:18;;:::i;:::-;344:8;319:4;:22;;:33;;;;;;;;;;;;;372:7;358:4;:11;;:21;;;;;;;;;;;;;401:9;385:4;:13;;:25;;;;;;;;;;;437:4;417:8;:17;426:7;417:17;;;;;;;;;;;;;;;:24;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;185:261;;;;;:::o;450:253::-;517:7;526;535;550:25;;:::i;:::-;595:8;:17;604:7;595:17;;;;;;;;;;;;;;;581:31;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;626:11;:29;;;657:11;:18;;;677:11;:20;;;618:80;;;;;;450:253;;;;;;:::o;25:680::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o",
+  "source": "pragma solidity ^0.4.4;\n\ncontract Merchant {\n\n  struct person {\n    bytes32 bankaccountNumber;\n    bytes32 amount;\n    address merchant;\n  }\n\n  mapping (address => person) customer;\n\n  function saveCustomerTransaction(address _person, bytes32 _account, bytes32 _amount, address _merchant) {\n    person memory user;\n    user.bankaccountNumber = _account;\n    user.amount = _amount;\n    user.merchant = _merchant;\n\n    customer[_person] = user;\n  }\n\n  function getCustomerTransaction(address _person) constant returns (bytes32, bytes32, address) {\n    person memory getCustomer;\n    getCustomer = customer[_person];\n    return (getCustomer.bankaccountNumber, getCustomer.amount, getCustomer.merchant);\n  }\n}",
+  "sourcePath": "/Users/rsureen/Documents/projects/angelhack/merchant/contracts/merchant.sol",
+  "ast": {
+    "absolutePath": "/Users/rsureen/Documents/projects/angelhack/merchant/contracts/merchant.sol",
+    "exportedSymbols": {
+      "Merchant": [
+        163
+      ]
+    },
+    "id": 164,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 83,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 163,
+        "linearizedBaseContracts": [
+          163
+        ],
+        "name": "Merchant",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Merchant.person",
+            "id": 90,
+            "members": [
+              {
+                "constant": false,
+                "id": 85,
+                "name": "bankaccountNumber",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "68:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 84,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "68:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 87,
+                "name": "amount",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "99:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 86,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "99:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 89,
+                "name": "merchant",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "119:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 88,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "119:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "person",
+            "nodeType": "StructDefinition",
+            "scope": 163,
+            "src": "48:92:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 94,
+            "name": "customer",
+            "nodeType": "VariableDeclaration",
+            "scope": 163,
+            "src": "144:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+              "typeString": "mapping(address => struct Merchant.person storage ref)"
+            },
+            "typeName": {
+              "id": 93,
+              "keyType": {
+                "id": 91,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "153:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "144:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                "typeString": "mapping(address => struct Merchant.person storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 92,
+                "name": "person",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 90,
+                "src": "164:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                  "typeString": "struct Merchant.person storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 132,
+              "nodeType": "Block",
+              "src": "289:157:1",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 106,
+                      "name": "user",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 133,
+                      "src": "295:18:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 105,
+                        "name": "person",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 90,
+                        "src": "295:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                          "typeString": "struct Merchant.person storage pointer"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 107,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "295:18:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 108,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "319:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "bankaccountNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 85,
+                      "src": "319:22:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 111,
+                      "name": "_account",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 98,
+                      "src": "344:8:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "319:33:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 113,
+                  "nodeType": "ExpressionStatement",
+                  "src": "319:33:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 118,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 114,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "358:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 116,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "amount",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 87,
+                      "src": "358:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 117,
+                      "name": "_amount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 100,
+                      "src": "372:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "358:21:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 119,
+                  "nodeType": "ExpressionStatement",
+                  "src": "358:21:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 124,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 120,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "385:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 122,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "merchant",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 89,
+                      "src": "385:13:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 123,
+                      "name": "_merchant",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 102,
+                      "src": "401:9:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "385:25:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 125,
+                  "nodeType": "ExpressionStatement",
+                  "src": "385:25:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 130,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 126,
+                        "name": "customer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 94,
+                        "src": "417:8:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                          "typeString": "mapping(address => struct Merchant.person storage ref)"
+                        }
+                      },
+                      "id": 128,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 127,
+                        "name": "_person",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 96,
+                        "src": "426:7:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "417:17:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_storage",
+                        "typeString": "struct Merchant.person storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 129,
+                      "name": "user",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 106,
+                      "src": "437:4:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      }
+                    },
+                    "src": "417:24:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_person_$90_storage",
+                      "typeString": "struct Merchant.person storage ref"
+                    }
+                  },
+                  "id": 131,
+                  "nodeType": "ExpressionStatement",
+                  "src": "417:24:1"
+                }
+              ]
+            },
+            "id": 133,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "saveCustomerTransaction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 96,
+                  "name": "_person",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "218:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 95,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "218:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 98,
+                  "name": "_account",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "235:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 97,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "235:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 100,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "253:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 99,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "253:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "_merchant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "270:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 101,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "270:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "217:71:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 104,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:1"
+            },
+            "scope": 163,
+            "src": "185:261:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 161,
+              "nodeType": "Block",
+              "src": "544:159:1",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 145,
+                      "name": "getCustomer",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 162,
+                      "src": "550:25:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 144,
+                        "name": "person",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 90,
+                        "src": "550:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                          "typeString": "struct Merchant.person storage pointer"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 146,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "550:25:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 151,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 147,
+                      "name": "getCustomer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 145,
+                      "src": "581:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 148,
+                        "name": "customer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 94,
+                        "src": "595:8:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                          "typeString": "mapping(address => struct Merchant.person storage ref)"
+                        }
+                      },
+                      "id": 150,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 149,
+                        "name": "_person",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 135,
+                        "src": "604:7:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "595:17:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_storage",
+                        "typeString": "struct Merchant.person storage ref"
+                      }
+                    },
+                    "src": "581:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                      "typeString": "struct Merchant.person memory"
+                    }
+                  },
+                  "id": 152,
+                  "nodeType": "ExpressionStatement",
+                  "src": "581:31:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 153,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "626:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 154,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "bankaccountNumber",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 85,
+                        "src": "626:29:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 155,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "657:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 156,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "amount",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 87,
+                        "src": "657:18:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 157,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "677:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 158,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "merchant",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 89,
+                        "src": "677:20:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "id": 159,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "625:73:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes32_$_t_bytes32_$_t_address_$",
+                      "typeString": "tuple(bytes32,bytes32,address)"
+                    }
+                  },
+                  "functionReturnParameters": 143,
+                  "id": 160,
+                  "nodeType": "Return",
+                  "src": "618:80:1"
+                }
+              ]
+            },
+            "id": 162,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getCustomerTransaction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 136,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 135,
+                  "name": "_person",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "482:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 134,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "482:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "481:17:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 143,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 138,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "517:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 137,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "517:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 140,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "526:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 139,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "526:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 142,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "535:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 141,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "535:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "516:27:1"
+            },
+            "scope": 163,
+            "src": "450:253:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 164,
+        "src": "25:680:1"
+      }
+    ],
+    "src": "0:705:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/rsureen/Documents/projects/angelhack/merchant/contracts/merchant.sol",
+    "exportedSymbols": {
+      "Merchant": [
+        163
+      ]
+    },
+    "id": 164,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 83,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".4"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 163,
+        "linearizedBaseContracts": [
+          163
+        ],
+        "name": "Merchant",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Merchant.person",
+            "id": 90,
+            "members": [
+              {
+                "constant": false,
+                "id": 85,
+                "name": "bankaccountNumber",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "68:25:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 84,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "68:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 87,
+                "name": "amount",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "99:14:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 86,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "99:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 89,
+                "name": "merchant",
+                "nodeType": "VariableDeclaration",
+                "scope": 90,
+                "src": "119:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 88,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "119:7:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "person",
+            "nodeType": "StructDefinition",
+            "scope": 163,
+            "src": "48:92:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 94,
+            "name": "customer",
+            "nodeType": "VariableDeclaration",
+            "scope": 163,
+            "src": "144:36:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+              "typeString": "mapping(address => struct Merchant.person storage ref)"
+            },
+            "typeName": {
+              "id": 93,
+              "keyType": {
+                "id": 91,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "153:7:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "144:27:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                "typeString": "mapping(address => struct Merchant.person storage ref)"
+              },
+              "valueType": {
+                "contractScope": null,
+                "id": 92,
+                "name": "person",
+                "nodeType": "UserDefinedTypeName",
+                "referencedDeclaration": 90,
+                "src": "164:6:1",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                  "typeString": "struct Merchant.person storage pointer"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 132,
+              "nodeType": "Block",
+              "src": "289:157:1",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 106,
+                      "name": "user",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 133,
+                      "src": "295:18:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 105,
+                        "name": "person",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 90,
+                        "src": "295:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                          "typeString": "struct Merchant.person storage pointer"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 107,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "295:18:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 112,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 108,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "319:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "bankaccountNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 85,
+                      "src": "319:22:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 111,
+                      "name": "_account",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 98,
+                      "src": "344:8:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "319:33:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 113,
+                  "nodeType": "ExpressionStatement",
+                  "src": "319:33:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 118,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 114,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "358:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 116,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "amount",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 87,
+                      "src": "358:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 117,
+                      "name": "_amount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 100,
+                      "src": "372:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bytes32",
+                        "typeString": "bytes32"
+                      }
+                    },
+                    "src": "358:21:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "id": 119,
+                  "nodeType": "ExpressionStatement",
+                  "src": "358:21:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 124,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 120,
+                        "name": "user",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 106,
+                        "src": "385:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                          "typeString": "struct Merchant.person memory"
+                        }
+                      },
+                      "id": 122,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "merchant",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 89,
+                      "src": "385:13:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 123,
+                      "name": "_merchant",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 102,
+                      "src": "401:9:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "385:25:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 125,
+                  "nodeType": "ExpressionStatement",
+                  "src": "385:25:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 130,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 126,
+                        "name": "customer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 94,
+                        "src": "417:8:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                          "typeString": "mapping(address => struct Merchant.person storage ref)"
+                        }
+                      },
+                      "id": 128,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 127,
+                        "name": "_person",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 96,
+                        "src": "426:7:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "417:17:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_storage",
+                        "typeString": "struct Merchant.person storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 129,
+                      "name": "user",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 106,
+                      "src": "437:4:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      }
+                    },
+                    "src": "417:24:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_person_$90_storage",
+                      "typeString": "struct Merchant.person storage ref"
+                    }
+                  },
+                  "id": 131,
+                  "nodeType": "ExpressionStatement",
+                  "src": "417:24:1"
+                }
+              ]
+            },
+            "id": 133,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "saveCustomerTransaction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 96,
+                  "name": "_person",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "218:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 95,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "218:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 98,
+                  "name": "_account",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "235:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 97,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "235:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 100,
+                  "name": "_amount",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "253:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 99,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "253:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "_merchant",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 133,
+                  "src": "270:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 101,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "270:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "217:71:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 104,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "289:0:1"
+            },
+            "scope": 163,
+            "src": "185:261:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 161,
+              "nodeType": "Block",
+              "src": "544:159:1",
+              "statements": [
+                {
+                  "assignments": [],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 145,
+                      "name": "getCustomer",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 162,
+                      "src": "550:25:1",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      },
+                      "typeName": {
+                        "contractScope": null,
+                        "id": 144,
+                        "name": "person",
+                        "nodeType": "UserDefinedTypeName",
+                        "referencedDeclaration": 90,
+                        "src": "550:6:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_person_$90_storage_ptr",
+                          "typeString": "struct Merchant.person storage pointer"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 146,
+                  "initialValue": null,
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "550:25:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 151,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 147,
+                      "name": "getCustomer",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 145,
+                      "src": "581:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                        "typeString": "struct Merchant.person memory"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 148,
+                        "name": "customer",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 94,
+                        "src": "595:8:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_person_$90_storage_$",
+                          "typeString": "mapping(address => struct Merchant.person storage ref)"
+                        }
+                      },
+                      "id": 150,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 149,
+                        "name": "_person",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 135,
+                        "src": "604:7:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "IndexAccess",
+                      "src": "595:17:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_person_$90_storage",
+                        "typeString": "struct Merchant.person storage ref"
+                      }
+                    },
+                    "src": "581:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                      "typeString": "struct Merchant.person memory"
+                    }
+                  },
+                  "id": 152,
+                  "nodeType": "ExpressionStatement",
+                  "src": "581:31:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 153,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "626:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 154,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "bankaccountNumber",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 85,
+                        "src": "626:29:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 155,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "657:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 156,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "amount",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 87,
+                        "src": "657:18:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 157,
+                          "name": "getCustomer",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 145,
+                          "src": "677:11:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_person_$90_memory_ptr",
+                            "typeString": "struct Merchant.person memory"
+                          }
+                        },
+                        "id": 158,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberName": "merchant",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 89,
+                        "src": "677:20:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "id": 159,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "625:73:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$_t_bytes32_$_t_bytes32_$_t_address_$",
+                      "typeString": "tuple(bytes32,bytes32,address)"
+                    }
+                  },
+                  "functionReturnParameters": 143,
+                  "id": 160,
+                  "nodeType": "Return",
+                  "src": "618:80:1"
+                }
+              ]
+            },
+            "id": 162,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "getCustomerTransaction",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 136,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 135,
+                  "name": "_person",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "482:15:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 134,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "482:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "481:17:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 143,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 138,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "517:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 137,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "517:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 140,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "526:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 139,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "526:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 142,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 162,
+                  "src": "535:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 141,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "535:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "516:27:1"
+            },
+            "scope": 163,
+            "src": "450:253:1",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 164,
+        "src": "25:680:1"
+      }
+    ],
+    "src": "0:705:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {
+    "1520433753394": {
+      "events": {},
+      "links": {},
+      "address": "0x246afccc0f867f96335c554256cc39302cd58d05",
+      "transactionHash": "0x781af85edfe29b9ce054ff037becb81dcb74edd211ed5da5e5b784b41bb7baa9"
+    },
+    "1520447649287": {
+      "events": {},
+      "links": {},
+      "address": "0xeb5f2811792e85b25f9278236da8f4e32a827bcb",
+      "transactionHash": "0x781af85edfe29b9ce054ff037becb81dcb74edd211ed5da5e5b784b41bb7baa9"
+    },
+    "1520449567936": {
+      "events": {},
+      "links": {},
+      "address": "0xe6d2e86714e3666fa8c4d4cd1986df18bcdcf60f",
+      "transactionHash": "0x781af85edfe29b9ce054ff037becb81dcb74edd211ed5da5e5b784b41bb7baa9"
+    },
+    "1520451324827": {
+      "events": {},
+      "links": {},
+      "address": "0x2d63e906c68911b16330fd07496c8428e9e93225",
+      "transactionHash": "0x27f89e08b46d0ccaaf5b261b1589c90745ee61f48962a7217bb6f7dc30549fe4"
+    },
+    "1520453736740": {
+      "events": {},
+      "links": {},
+      "address": "0xc87206bb8c8dc7e2ce5065750f80c7ac99c0209b",
+      "transactionHash": "0x5a922819fdae7bcf9c402e6dd72fb3d537f6aff8d6d25c5dd3818b713e5a41a2"
+    },
+    "1520454986804": {
+      "events": {},
+      "links": {},
+      "address": "0xaf41e9505cbd8462b4eeaa53ccc810e43e9b4e3b",
+      "transactionHash": "0xe69272a35d10d4006d205de00b64b6a2aa5f0d567dece74a4b1cdf685da3be43"
+    }
+  },
+  "schemaVersion": "2.0.0",
+  "updatedAt": "2018-03-08T00:51:08.716Z"
+}
